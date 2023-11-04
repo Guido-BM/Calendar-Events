@@ -5,7 +5,8 @@ import { Typography } from "antd"; // Importa el componente Typography
 
 const { Title } = Typography; // Obtén el componente Title de Typography
 
-const PreviewLeft = ({ selectedDate, selectedEvents }) => {
+const PreviewLeft = ({ selectedDate, selectedEvents, addEvents }) => {
+
   return (
     <>
       <div id="PreviewLeftContainer">
@@ -18,7 +19,7 @@ const PreviewLeft = ({ selectedDate, selectedEvents }) => {
         </div>
 
         <DateCellRender listData={selectedEvents} />
-        <CreateEventButton />
+        <CreateEventButton  addEvents={addEvents} selectedDate={selectedDate ? selectedDate.format("D-MMM") : ""}/>
       </div>
     </>
   );

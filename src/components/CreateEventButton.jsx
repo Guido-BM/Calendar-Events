@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Radio, TimePicker } from 'antd';
 
 
-const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
+const CollectionCreateForm = ({ open, onCreate, onCancel, onFormDataChange }) => {
   const [form] = Form.useForm();
   return (
     <Modal
@@ -19,7 +19,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
             onCreate(values);
           })
           .catch((info) => {
-            console.log('Validate Failed:', info);
+            // console.log('Validate Failed:', info);
           });
       }}
     >
@@ -29,8 +29,8 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
         name="form_in_modal"
         initialValues={{
           modifier: 'public',
-        }}
-      >
+        }}        
+      > 
         <Form.Item
           name="title"
           label="Title"
@@ -46,14 +46,11 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
         <Form.Item name="description" label="Description">
           <Input.TextArea />
         </Form.Item>
-        <Form.Item>
-        <TimePicker.RangePicker />
-        </Form.Item>
         <Form.Item name="modifier" className="collection-create-form_last-form-item">
           <Radio.Group>
-            <Radio value="urgent">Urgent</Radio>
-            <Radio value="requiere attention">Require attention</Radio>
-            <Radio value="no rush">No Rush</Radio>
+            <Radio value="error">Urgent</Radio>
+            <Radio value="warning">Require attention</Radio>
+            <Radio value="success">No Rush</Radio>
           </Radio.Group>
         </Form.Item>
       </Form>
@@ -61,11 +58,18 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
   );
 };
 
-const CreateEventButton = () => {
+const CreateEventButton = ({addEvents,selectedDate}) => {
   const [open, setOpen] = useState(false);
 
   const onCreate = (values) => {
-    console.log('Received values of form: ', values);
+
+    const newEvent = {
+      title: values.title,
+      description: values.description,
+      modifier: values.modifier,
+      date: selectedDate,
+    };
+    addEvents(newEvent);
     setOpen(false);
   };
 
@@ -82,6 +86,7 @@ const CreateEventButton = () => {
       <CollectionCreateForm
         open={open}
         onCreate={onCreate}
+        
         onCancel={() => {
           setOpen(false);
         }}

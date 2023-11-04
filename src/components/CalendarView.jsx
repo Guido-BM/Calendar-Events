@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {ConfigProvider, Calendar } from 'antd';
 import "../App.css";
 import DateCellRender from './DateCellRender';
@@ -7,81 +7,19 @@ import PreviewLeft from "../components/PreviewLeft";
 const CalendarView = () => {
   const [ selectedDate, setSelectedDate] = useState(null);
   const [ selectedEvents, setSelectedEvents] = useState([]);
-  
-  useEffect(() => {
-    console.log( selectedDate, selectedEvents);
-  
-
-  }, [ selectedDate, selectedEvents])  
+  const [ savedMonthlyEvents, setSavedMonthlyEvents] = useState([]);
 
   const getListData = (value) => {
-    let listData;
-    switch (value && value.date()) {
-      case 8:
-        listData = [
-          {
-            type: 'warning',
-            content: 'This is warning event.',
-          },
-          {
-            type: 'success',
-            content: 'This is usual event.',
-          },
-        ];
-        break;
-      case 10:
-        listData = [
-          {
-            type: 'warning',
-            content: 'This is warning event.',
-          },
-          {
-            type: 'success',
-            content: 'This is usual event.',
-          },
-          {
-            type: 'error',
-            content: 'This is error event.',
-          },
-        ];
-        break;
-      case 15:
-        listData = [
-          {
-            type: 'warning',
-            content: 'This is warning event',
-          },
-          {
-            type: 'success',
-            content: 'This is very long usual event......',
-          },
-          {
-            type: 'error',
-            content: 'This is error event 1.',
-          },
-          {
-            type: 'error',
-            content: 'This is error event 2.',
-          },
-          {
-            type: 'error',
-            content: 'This is error event 3.',
-          },
-          {
-            type: 'error',
-            content: 'This is error event 4.',
-          },
-        ];
-        break;
-      default:
-    }
-    return listData || [];
+    
+   
+    
+    return savedMonthlyEvents.filter((event) => event.date===value.format("D-MMM"));
   };
   
   const handleDateSelect = (date, info) => {
     if (info.source === 'date') {
-      console.log('Selected Date:', date);
-      console.log('Info:', info);
+      // console.log('Selected Date:', date);
+      // console.log('Info:', info);
       const eventsForSelectedDate = getListData(date);      
       
       setSelectedDate(date);
@@ -131,8 +69,9 @@ const CalendarView = () => {
         },
       }}
     >
-      <PreviewLeft selectedDate={selectedDate} selectedEvents={getListData(selectedDate)} />
-      <Calendar cellRender={cellRender} onSelect={handleDateSelect} />
+      <PreviewLeft selectedDate={selectedDate} selectedEvents={getListData(selectedDate)} addEvents={(newEvent)=>{setSavedMonthlyEvents([...savedMonthlyEvents, newEvent])}}/>
+      <Calendar  onSelect={handleDateSelect} cellRender={cellRender}/> 
+      
     </ConfigProvider>
   );
 };
