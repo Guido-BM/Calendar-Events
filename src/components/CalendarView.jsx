@@ -18,7 +18,7 @@ const CalendarView = () => {
 
   const getListData = (value) => {
     let listData;
-    switch (value.date()) {
+    switch (value && value.date()) {
       case 8:
         listData = [
           {
@@ -83,8 +83,7 @@ const CalendarView = () => {
     if (info.source === 'date') {
       console.log('Selected Date:', date);
       console.log('Info:', info);
-      const eventsForSelectedDate = getListData(date);
-      
+      const eventsForSelectedDate = getListData(date);      
       
       setSelectedDate(date);
       setSelectedEvents(eventsForSelectedDate);
