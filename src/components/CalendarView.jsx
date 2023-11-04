@@ -12,9 +12,7 @@ const CalendarView = () => {
     console.log( selectedDate, selectedEvents);
   
 
-  }, [ selectedDate, selectedEvents])
-  
-  
+  }, [ selectedDate, selectedEvents])  
 
   const getListData = (value) => {
     let listData;
@@ -79,6 +77,7 @@ const CalendarView = () => {
     }
     return listData || [];
   };
+  
   const handleDateSelect = (date, info) => {
     if (info.source === 'date') {
       console.log('Selected Date:', date);

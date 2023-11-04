@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Modal, Radio } from 'antd';
+import { Button, Form, Input, Modal, Radio, TimePicker } from 'antd';
+
 
 const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
   const [form] = Form.useForm();
@@ -45,10 +46,14 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
         <Form.Item name="description" label="Description">
           <Input.TextArea />
         </Form.Item>
+        <Form.Item>
+        <TimePicker.RangePicker />
+        </Form.Item>
         <Form.Item name="modifier" className="collection-create-form_last-form-item">
           <Radio.Group>
-            <Radio value="public">Public</Radio>
-            <Radio value="private">Private</Radio>
+            <Radio value="urgent">Urgent</Radio>
+            <Radio value="requiere attention">Require attention</Radio>
+            <Radio value="no rush">No Rush</Radio>
           </Radio.Group>
         </Form.Item>
       </Form>
