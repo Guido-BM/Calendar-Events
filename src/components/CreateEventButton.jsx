@@ -46,6 +46,22 @@ const CollectionCreateForm = ({ open, onCreate, onCancel, onFormDataChange }) =>
         <Form.Item name="description" label="Description">
           <Input.TextArea />
         </Form.Item>
+        <Form.Item
+  name="time"
+  label="Time"
+  rules={[
+    {
+      validator: (_, value) => {
+        if (!value || value[0].isBefore(value[1])) {
+          return Promise.resolve();
+        }
+        return Promise.reject(new Error('End time must be after start time'));
+      },
+    },
+  ]}
+>
+          <TimePicker.RangePicker format='HH:mm'/>
+        </Form.Item>
         <Form.Item name="modifier" className="collection-create-form_last-form-item">
           <Radio.Group>
             <Radio value="error">Urgent</Radio>
@@ -68,6 +84,7 @@ const CreateEventButton = ({addEvents,selectedDate}) => {
       description: values.description,
       modifier: values.modifier,
       date: selectedDate,
+      time: values.time,
     };
     addEvents(newEvent);
     setOpen(false);

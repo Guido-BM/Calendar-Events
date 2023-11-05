@@ -10,9 +10,8 @@ const CalendarView = () => {
   const [ savedMonthlyEvents, setSavedMonthlyEvents] = useState([]);
 
   const getListData = (value) => {
-    
-   
-    
+
+    console.log(selectedEvents);
     return savedMonthlyEvents.filter((event) => event.date===value.format("D-MMM"));
   };
   

@@ -1,9 +1,9 @@
 import React from "react";
 import CreateEventButton from "./CreateEventButton";
 import DateCellRender from "./DateCellRender";
-import { Typography } from "antd"; // Importa el componente Typography
+import { Typography } from "antd"; 
 
-const { Title } = Typography; // Obtén el componente Title de Typography
+const { Title } = Typography; 
 
 const PreviewLeft = ({ selectedDate, selectedEvents, addEvents }) => {
 
