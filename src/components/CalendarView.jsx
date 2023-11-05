@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import {ConfigProvider, Calendar } from 'antd';
+import moment from 'moment';
 import "../App.css";
 import DateCellRender from './DateCellRender';
 import PreviewLeft from "../components/PreviewLeft";
 
+
 const CalendarView = () => {
-  const [ selectedDate, setSelectedDate] = useState(null);
+  const [ selectedDate, setSelectedDate] = useState(moment());
   const [ selectedEvents, setSelectedEvents] = useState([]);
   const [ savedMonthlyEvents, setSavedMonthlyEvents] = useState([]);
 
