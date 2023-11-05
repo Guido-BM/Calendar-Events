@@ -17,8 +17,6 @@ const CalendarView = () => {
   
   const handleDateSelect = (date, info) => {
     if (info.source === 'date') {
-      // console.log('Selected Date:', date);
-      // console.log('Info:', info);
       const eventsForSelectedDate = getListData(date);      
       
       setSelectedDate(date);
@@ -68,7 +66,19 @@ const CalendarView = () => {
         },
       }}
     >
-      <PreviewLeft selectedDate={selectedDate} selectedEvents={getListData(selectedDate)} addEvents={(newEvent)=>{setSavedMonthlyEvents([...savedMonthlyEvents, newEvent])}}/>
+      <PreviewLeft selectedDate={selectedDate} 
+  selectedEvents={getListData(selectedDate)} 
+  addEvents={(newEvent) => {
+    const eventExists = savedMonthlyEvents.some(event => 
+      event.title === newEvent.title && 
+      event.date === newEvent.date && 
+      event.time === newEvent.time
+    );
+
+    if (!eventExists) {
+      setSavedMonthlyEvents([...savedMonthlyEvents, newEvent]);
+    }
+  }}/>
       <Calendar  onSelect={handleDateSelect} cellRender={cellRender}/> 
       
     </ConfigProvider>
